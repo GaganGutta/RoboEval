@@ -1,0 +1,12 @@
+Python 3.10.22
+Linux GHOST 6.18.33.2-microsoft-standard-WSL2 #1 SMP PREEMPT_DYNAMIC Thu Jun 18 21:54:43 UTC 2026 x86_64 GNU/Linux
+PRETTY_NAME="Ubuntu 26.04 LTS"
+NAME="Ubuntu"
+VERSION_ID="26.04"
+name, memory.total [MiB], driver_version
+NVIDIA GeForce RTX 4070 Laptop GPU, 8188 MiB, 617.42
+16
+               total        used        free      shared  buff/cache   available
+Mem:              15           9           3           0           3           6
+robomimic ae5799f0fae05c4559ee1f9645b0f77eb5251929 v0.5.0
+robosuite 51cc01785bab80ffeed20da15e67d7dd4140e76a v1.5.1

@@ -15,7 +15,13 @@ VENV="$HOME/venvs/data_eval"
 SRC="$HOME/src"
 ROBOMIMIC_TAG="v0.5.0"
 ROBOSUITE_TAG="v1.5.1"
-TORCH_VERSION="2.5.1"   # stable, ships CUDA 12.4 wheels on PyPI for Linux
+# Versions actually used for every reported result (full list: docs/env/pip_freeze.txt).
+TORCH_VERSION="2.14.1"        # PyPI Linux wheel, CUDA 13.0 runtime
+TORCHVISION_VERSION="0.29.2"
+# MuJoCo 3.17 (what pip picks by default) breaks robosuite 1.5.1 (joint-type assertion in
+# binding_utils.get_joint_qpos_addr). 3.2.6 (Dec 2024) matches robosuite 1.5.1's era and
+# passes our demo-replay check (results/sanity/replay_*.json).
+MUJOCO_VERSION="3.2.6"
 
 # uv manages the Python interpreter and venv (no conda on this machine).
 if ! command -v uv >/dev/null 2>&1 && [ ! -x "$HOME/.local/bin/uv" ]; then
@@ -44,8 +50,9 @@ git -C "$SRC/robomimic" fetch --tags -q
 git -C "$SRC/robomimic" checkout -q "$ROBOMIMIC_TAG"
 
 # numpy<2: robomimic's pinned transformers/diffusers and numba predate numpy 2.
-uv pip install "torch==$TORCH_VERSION" "numpy<2"
+uv pip install "torch==$TORCH_VERSION" "torchvision==$TORCHVISION_VERSION" "numpy==1.26.4"
 uv pip install -e "$SRC/robosuite"
+uv pip install "mujoco==$MUJOCO_VERSION"
 # egl_probe (a robomimic dependency, only used for image rendering) has
 # cmake_minimum_required < 3.5, which CMake 4 rejects. This env var tells CMake 4 to
 # configure it anyway.
