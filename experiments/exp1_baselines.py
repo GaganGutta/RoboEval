@@ -1,0 +1,153 @@
+"""Exp 1: does data quality matter on Can MH? (answer key for everything after)
+
+Conditions (all drawn from the 280-demo pool; the 20 held-out "better" demos are never used):
+    all       : pool              (280 demos)
+    better    : better_pool       (80)   oracle
+    worse     : worse_pool        (100)
+    random80  : random80_s<seed>  (80)   same size as better; a fresh random draw per seed
+
+Phases (each one command, resumable; finished work is skipped):
+    python -m experiments.exp1_baselines --phase train  --runs all:0 better:0 ...
+    python -m experiments.exp1_baselines --phase eval   --runs ... --epochs 200 400 --seedset select --n 50
+    python -m experiments.exp1_baselines --phase report
+Convenience: --runs full  ==  every condition x seeds 0,1,2.
+"""
+import argparse
+import glob
+import json
+import os
+import re
+
+import numpy as np
+import yaml
+
+from experiments.common import PY, REPO, git_commit, run_jobs, write_json
+
+TASK = "can"
+CONDITIONS = {"all": "pool", "better": "better_pool", "worse": "worse_pool", "random80": None}
+SEEDS = [0, 1, 2]
+RUN_ROOT = os.path.join(REPO, "runs", "exp1")
+RES_ROOT = os.path.join(REPO, "results", "exp1")
+CFG = yaml.safe_load(open(os.path.join(REPO, "configs", "bc_rnn_lowdim.yaml")))
+
+
+def parse_runs(spec):
+    if spec == ["full"]:
+        return [(c, s) for c in CONDITIONS for s in SEEDS]
+    out = []
+    for item in spec:
+        c, s = item.split(":")
+        assert c in CONDITIONS, c
+        out.append((c, int(s)))
+    return out
+
+
+def filter_key(cond, seed):
+    from data.splits import random_subset
+    if cond == "random80":
+        return random_subset(TASK, 80, seed)   # writes mask/random80_s<seed>
+    return CONDITIONS[cond]
+
+
+def run_dir(cond, seed):
+    return os.path.join(RUN_ROOT, f"{cond}_s{seed}")
+
+
+def ckpt_for_epoch(cond, seed, epoch):
+    paths = glob.glob(os.path.join(run_dir(cond, seed), "run", "*", "models", f"model_epoch_{epoch}.pth"))
+    assert len(paths) == 1, (cond, seed, epoch, paths)
+    return paths[0]
+
+
+def phase_train(runs, args):
+    from data.mh import working_path
+    dataset = working_path(TASK)
+    jobs = []
+    for cond, seed in runs:
+        fk = filter_key(cond, seed)
+        argv = [PY, "-m", "train.bc_rnn", "--dataset", dataset, "--filter_key", fk,
+                "--seed", str(seed), "--out", run_dir(cond, seed)]
+        if args.num_epochs:
+            argv += ["--num_epochs", str(args.num_epochs)]
+        if args.save_epochs:
+            argv += ["--save_epochs"] + [str(e) for e in args.save_epochs]
+        jobs.append((f"train_{cond}_s{seed}", argv))
+    run_jobs(jobs, args.parallel, os.path.join(REPO, "logs", "exp1"))
+
+
+def phase_eval(runs, args):
+    from eval.rollout import evaluate
+    base = CFG["eval"]["report_seed_base"] if args.seedset == "report" else CFG["eval"]["select_seed_base"]
+    for cond, seed in runs:
+        for ep in args.epochs:
+            out = os.path.join(RES_ROOT, "evals", f"{cond}_s{seed}_ep{ep}_{args.seedset}.json")
+            if os.path.exists(out):
+                continue
+            res = evaluate(ckpt_for_epoch(cond, seed, ep), args.n, base, CFG["eval"]["horizon"], args.workers)
+            res.update({"task": TASK, "condition": cond, "train_seed": seed, "epoch": ep,
+                        "seedset": args.seedset, "git_commit": git_commit()})
+            write_json(out, res)
+            print(f"{cond} s{seed} ep{ep} [{args.seedset}] success={res['success_rate']:.2f} "
+                  f"({res['eval_seconds']:.0f}s)", flush=True)
+
+
+def wilson(k, n, z=1.96):
+    if n == 0:
+        return (np.nan, np.nan)
+    p = k / n
+    d = 1 + z * z / n
+    c = (p + z * z / (2 * n)) / d
+    h = z * np.sqrt(p * (1 - p) / n + z * z / (4 * n * n)) / d
+    return (c - h, c + h)
+
+
+def phase_report(args):
+    """Collect every eval json into one tidy CSV; summary table uses the REPORT seed set only."""
+    import pandas as pd
+    rows = []
+    for p in sorted(glob.glob(os.path.join(RES_ROOT, "evals", "*.json"))):
+        r = json.load(open(p))
+        k = sum(e["success"] for e in r["episodes"])
+        lo, hi = wilson(k, r["n"])
+        train_info = json.load(open(os.path.join(run_dir(r["condition"], r["train_seed"]), "train_done.json")))
+        rows.append({"task": r["task"], "condition": r["condition"], "train_seed": r["train_seed"],
+                     "epoch": r["epoch"], "seedset": r["seedset"], "n": r["n"], "successes": k,
+                     "success_rate": r["success_rate"], "wilson_lo": lo, "wilson_hi": hi,
+                     "filter_key": train_info["filter_key"], "train_minutes": train_info["train_seconds"] / 60,
+                     "git_commit": r.get("git_commit", "unknown")})
+    df = pd.DataFrame(rows)
+    os.makedirs(RES_ROOT, exist_ok=True)
+    df.to_csv(os.path.join(RES_ROOT, "all_evals.csv"), index=False)
+    rep = df[(df.seedset == "report") & (df.epoch == args.final_epoch)]
+    if len(rep):
+        summ = rep.groupby("condition").success_rate.agg(["mean", "std", "count"]).reset_index()
+        summ.to_csv(os.path.join(RES_ROOT, "summary.csv"), index=False)
+        print(summ.to_string(index=False))
+    print(f"wrote {len(df)} rows -> results/exp1/all_evals.csv")
+
+
+def main():
+    p = argparse.ArgumentParser()
+    p.add_argument("--phase", choices=["train", "eval", "report"], required=True)
+    p.add_argument("--runs", nargs="+", default=["full"])
+    p.add_argument("--parallel", type=int, default=6, help="concurrent training jobs (6 measured best)")
+    p.add_argument("--num_epochs", type=int, default=None)
+    p.add_argument("--save_epochs", type=int, nargs="+", default=None)
+    p.add_argument("--epochs", type=int, nargs="+", default=None, help="checkpoints to evaluate")
+    p.add_argument("--seedset", choices=["select", "report"], default="report")
+    p.add_argument("--n", type=int, default=CFG["eval"]["n_rollouts"])
+    p.add_argument("--workers", type=int, default=8, help="rollout processes (8 fits in WSL's 15 GB)")
+    p.add_argument("--final_epoch", type=int, default=CFG["train"]["num_epochs"])
+    args = p.parse_args()
+
+    if args.phase == "train":
+        phase_train(parse_runs(args.runs), args)
+    elif args.phase == "eval":
+        args.epochs = args.epochs or [CFG["train"]["num_epochs"]]
+        phase_eval(parse_runs(args.runs), args)
+    else:
+        phase_report(args)
+
+
+if __name__ == "__main__":
+    main()

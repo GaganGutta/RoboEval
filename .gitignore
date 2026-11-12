@@ -1,0 +1,9 @@
+# Raw and processed datasets are downloaded, never committed.
+data/raw/
+data/processed/
+# Training outputs (checkpoints, tensorboard logs) are large; results/ keeps the summaries.
+runs/
+logs/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/

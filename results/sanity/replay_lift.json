@@ -1,0 +1,129 @@
+{
+  "task": "lift",
+  "n": 30,
+  "replay_success_rate": 1.0,
+  "env_steps_per_sec": 35.9645749775166,
+  "mujoco": "3.2.6",
+  "results": [
+    {
+      "demo": "demo_0",
+      "success": true
+    },
+    {
+      "demo": "demo_10",
+      "success": true
+    },
+    {
+      "demo": "demo_20",
+      "success": true
+    },
+    {
+      "demo": "demo_30",
+      "success": true
+    },
+    {
+      "demo": "demo_41",
+      "success": true
+    },
+    {
+      "demo": "demo_51",
+      "success": true
+    },
+    {
+      "demo": "demo_61",
+      "success": true
+    },
+    {
+      "demo": "demo_72",
+      "success": true
+    },
+    {
+      "demo": "demo_82",
+      "success": true
+    },
+    {
+      "demo": "demo_92",
+      "success": true
+    },
+    {
+      "demo": "demo_103",
+      "success": true
+    },
+    {
+      "demo": "demo_113",
+      "success": true
+    },
+    {
+      "demo": "demo_123",
+      "success": true
+    },
+    {
+      "demo": "demo_134",
+      "success": true
+    },
+    {
+      "demo": "demo_144",
+      "success": true
+    },
+    {
+      "demo": "demo_154",
+      "success": true
+    },
+    {
+      "demo": "demo_164",
+      "success": true
+    },
+    {
+      "demo": "demo_175",
+      "success": true
+    },
+    {
+      "demo": "demo_185",
+      "success": true
+    },
+    {
+      "demo": "demo_195",
+      "success": true
+    },
+    {
+      "demo": "demo_206",
+      "success": true
+    },
+    {
+      "demo": "demo_216",
+      "success": true
+    },
+    {
+      "demo": "demo_226",
+      "success": true
+    },
+    {
+      "demo": "demo_237",
+      "success": true
+    },
+    {
+      "demo": "demo_247",
+      "success": true
+    },
+    {
+      "demo": "demo_257",
+      "success": true
+    },
+    {
+      "demo": "demo_268",
+      "success": true
+    },
+    {
+      "demo": "demo_278",
+      "success": true
+    },
+    {
+      "demo": "demo_288",
+      "success": true
+    },
+    {
+      "demo": "demo_299",
+      "success": true
+    }
+  ]
+}
