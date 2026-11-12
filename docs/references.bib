@@ -1,0 +1,386 @@
+% references.bib -- related work for the demonstration-curation project.
+% Every entry was checked against the source named in its `note`/`url` field on 2026-11-12.
+% Where a published proceedings entry exists, its fields are used; the arXiv ID is kept as eprint.
+% Fields that could not be verified are marked "TODO: unverified" in a comment next to the entry.
+
+% ---------------------------------------------------------------------------
+% Benchmarks and data sources
+% ---------------------------------------------------------------------------
+
+% Verified: https://proceedings.mlr.press/v164/mandlekar22a.html and arXiv API (2108.03298).
+% Note: CoRL 2021 paper; PMLR lists the publication year as 2022.
+@inproceedings{mandlekar2021robomimic,
+  title         = {What Matters in Learning from Offline Human Demonstrations for Robot Manipulation},
+  author        = {Mandlekar, Ajay and Xu, Danfei and Wong, Josiah and Nasiriany, Soroush and Wang, Chen and Kulkarni, Rohun and Fei-Fei, Li and Savarese, Silvio and Zhu, Yuke and Mart{\'i}n-Mart{\'i}n, Roberto},
+  booktitle     = {Proceedings of the 5th Conference on Robot Learning},
+  series        = {Proceedings of Machine Learning Research},
+  volume        = {164},
+  pages         = {1678--1690},
+  year          = {2022},
+  editor        = {Faust, Aleksandra and Hsu, David and Neumann, Gerhard},
+  publisher     = {PMLR},
+  url           = {https://proceedings.mlr.press/v164/mandlekar22a.html},
+  eprint        = {2108.03298},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.RO}
+}
+
+% Verified: https://arxiv.org/abs/2009.12293 (v1 2020-09-25, v2 2022-11-15, v3 2025-01-18; no journal ref).
+% Note: v3 describes robosuite v1.5; the author list below is the current arXiv listing.
+@misc{zhu2020robosuite,
+  title         = {robosuite: A Modular Simulation Framework and Benchmark for Robot Learning},
+  author        = {Zhu, Yuke and Wong, Josiah and Mandlekar, Ajay and Mart{\'i}n-Mart{\'i}n, Roberto and Joshi, Abhishek and Lin, Kevin and Maddukuri, Abhiram and Nasiriany, Soroush and Zhu, Yifeng},
+  year          = {2020},
+  eprint        = {2009.12293},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.RO},
+  url           = {https://arxiv.org/abs/2009.12293}
+}
+
+% Verified: https://proceedings.mlr.press/v229/mandlekar23a.html and arXiv API (2310.17596).
+@inproceedings{mandlekar2023mimicgen,
+  title         = {MimicGen: A Data Generation System for Scalable Robot Learning using Human Demonstrations},
+  author        = {Mandlekar, Ajay and Nasiriany, Soroush and Wen, Bowen and Akinola, Iretiayo and Narang, Yashraj and Fan, Linxi and Zhu, Yuke and Fox, Dieter},
+  booktitle     = {Proceedings of The 7th Conference on Robot Learning},
+  series        = {Proceedings of Machine Learning Research},
+  volume        = {229},
+  pages         = {1820--1864},
+  year          = {2023},
+  editor        = {Tan, Jie and Toussaint, Marc and Darvish, Kourosh},
+  publisher     = {PMLR},
+  url           = {https://proceedings.mlr.press/v229/mandlekar23a.html},
+  eprint        = {2310.17596},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.RO}
+}
+
+% ---------------------------------------------------------------------------
+% Offline (training-free) data-quality scoring
+% ---------------------------------------------------------------------------
+
+% Verified: https://roboticsproceedings.org/rss21/p023.html and arXiv API (2502.08623).
+% Author names as printed in the RSS proceedings.
+@inproceedings{hejna2025deminf,
+  title         = {Robot Data Curation with Mutual Information Estimators},
+  author        = {Hejna, Joey and Mirchandani, Suvir and Balakrishna, Ashwin and Xie, Annie and Wahid, Ayzaan and Tompson, Jonathan and Sanketi, Pannag R. and Shah, Dhruv and Devin, Coline Manon and Sadigh, Dorsa},
+  booktitle     = {Proceedings of Robotics: Science and Systems},
+  address       = {Los Angeles, CA, USA},
+  month         = jun,
+  year          = {2025},
+  doi           = {10.15607/RSS.2025.XXI.023},
+  url           = {https://roboticsproceedings.org/rss21/p023.html},
+  eprint        = {2502.08623},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.RO}
+}
+
+% Verified: NeurIPS proceedings BibTeX (fe692980c5d9732cf153ce27947653a7) and arXiv API (2306.02437).
+@inproceedings{belkhale2023dataquality,
+  title         = {Data Quality in Imitation Learning},
+  author        = {Belkhale, Suneel and Cui, Yuchen and Sadigh, Dorsa},
+  booktitle     = {Advances in Neural Information Processing Systems},
+  volume        = {36},
+  pages         = {80375--80395},
+  year          = {2023},
+  editor        = {Oh, A. and Naumann, T. and Globerson, A. and Saenko, K. and Hardt, M. and Levine, S.},
+  publisher     = {Curran Associates, Inc.},
+  doi           = {10.52202/075280-3524},
+  url           = {https://proceedings.neurips.cc/paper_files/paper/2023/file/fe692980c5d9732cf153ce27947653a7-Paper-Conference.pdf},
+  eprint        = {2306.02437},
+  archivePrefix = {arXiv}
+}
+
+% Verified: arXiv API (2210.08073). arXiv comment says "To appear at ... CoRL 2022".
+% TODO: unverified -- PMLR volume/pages for the CoRL 2022 version were not checked; arXiv entry used.
+@misc{gandhi2022compatible,
+  title         = {Eliciting Compatible Demonstrations for Multi-Human Imitation Learning},
+  author        = {Gandhi, Kanishk and Karamcheti, Siddharth and Liao, Madeline and Sadigh, Dorsa},
+  year          = {2022},
+  eprint        = {2210.08073},
+  archivePrefix = {arXiv},
+  url           = {https://arxiv.org/abs/2210.08073}
+}
+
+% Verified: https://proceedings.mlr.press/v229/kuhar23a.html (editors: same PMLR volume 229 as MimicGen).
+@inproceedings{kuhar2023l2d,
+  title         = {Learning to Discern: Imitating Heterogeneous Human Demonstrations with Preference and Representation Learning},
+  author        = {Kuhar, Sachit and Cheng, Shuo and Chopra, Shivang and Bronars, Matthew and Xu, Danfei},
+  booktitle     = {Proceedings of The 7th Conference on Robot Learning},
+  series        = {Proceedings of Machine Learning Research},
+  volume        = {229},
+  pages         = {1437--1449},
+  year          = {2023},
+  editor        = {Tan, Jie and Toussaint, Marc and Darvish, Kourosh},
+  publisher     = {PMLR},
+  url           = {https://proceedings.mlr.press/v229/kuhar23a.html}
+}
+
+% Verified: arXiv API (2505.22626; v2 2025-09-09; no journal ref).
+% TODO: unverified -- UT Austin RPL lab page lists this as ICRA 2026; proceedings entry not checked.
+@misc{zhang2025scizor,
+  title         = {SCIZOR: A Self-Supervised Approach to Data Curation for Large-Scale Imitation Learning},
+  author        = {Zhang, Yu and Xie, Yuqi and Liu, Huihan and Shah, Rutav and Wan, Michael and Fan, Linxi and Zhu, Yuke},
+  year          = {2025},
+  eprint        = {2505.22626},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.RO},
+  url           = {https://arxiv.org/abs/2505.22626}
+}
+
+% Verified: arXiv API (2604.23000) and https://icml.cc/virtual/2025/48703
+% (poster at the ICML 2025 workshop "DataWorld: Unifying data curation frameworks across domains").
+@misc{kulkarni2026rinse,
+  title         = {Learning from the Best: Smoothness-Driven Metrics for Data Quality in Imitation Learning},
+  author        = {Kulkarni, Soham and Dhar, Raayan and Cui, Yuchen},
+  year          = {2026},
+  eprint        = {2604.23000},
+  archivePrefix = {arXiv},
+  url           = {https://arxiv.org/abs/2604.23000},
+  note          = {Also presented at the ICML 2025 Workshop on DataWorld: Unifying Data Curation Frameworks Across Domains}
+}
+
+% Verified: arXiv API (2605.01544; v2 2026-09-07; no journal ref).
+@misc{sojib2026psd,
+  title         = {An Efficient Metric for Data Quality Measurement in Imitation Learning},
+  author        = {Sojib, Noushad and Arthanat, Sajay and Begum, Momotaz},
+  year          = {2026},
+  eprint        = {2605.01544},
+  archivePrefix = {arXiv},
+  url           = {https://arxiv.org/abs/2605.01544}
+}
+
+% Verified: arXiv API (2603.11634; v2 2026-10-13; no journal ref).
+@misc{sirigiri2026faktual,
+  title         = {Diversity You Can Actually Measure: A Fast, Model-Free Diversity Metric for Robotics Datasets},
+  author        = {Sirigiri, Sreevardhan and de Lara, Nathan Samuel and Agia, Christopher and Shkurti, Florian and Ramos, Fabio},
+  year          = {2026},
+  eprint        = {2603.11634},
+  archivePrefix = {arXiv},
+  url           = {https://arxiv.org/abs/2603.11634}
+}
+
+% Verified: arXiv API (2606.20871; comment: "Accepted to IROS 2026").
+% TODO: unverified -- IROS 2026 proceedings entry not checked; arXiv entry used.
+@misc{luo2026geometric,
+  title         = {Geometric Entropy: When Trajectory Diversity Helps and Hurts in Imitation Learning},
+  author        = {Luo, Qian and Liu, Ruizhe and Zhou, Pei and Zhou, Xunzhe and Yang, Yanchao},
+  year          = {2026},
+  eprint        = {2606.20871},
+  archivePrefix = {arXiv},
+  url           = {https://arxiv.org/abs/2606.20871}
+}
+
+% ---------------------------------------------------------------------------
+% Influence / gradient-based selection
+% ---------------------------------------------------------------------------
+
+% Verified: https://proceedings.mlr.press/v70/koh17a.html and arXiv API (1703.04730).
+@inproceedings{koh2017influence,
+  title         = {Understanding Black-box Predictions via Influence Functions},
+  author        = {Koh, Pang Wei and Liang, Percy},
+  booktitle     = {Proceedings of the 34th International Conference on Machine Learning},
+  series        = {Proceedings of Machine Learning Research},
+  volume        = {70},
+  pages         = {1885--1894},
+  year          = {2017},
+  editor        = {Precup, Doina and Teh, Yee Whye},
+  publisher     = {PMLR},
+  url           = {https://proceedings.mlr.press/v70/koh17a.html},
+  eprint        = {1703.04730},
+  archivePrefix = {arXiv}
+}
+
+% Verified: NeurIPS proceedings BibTeX (e6385d39ec9394f2f3a354d9d2b88eec) and arXiv API (2002.08484).
+% Note: author order differs between sources. NeurIPS proceedings: Pruthi, Liu, Kale, Sundararajan.
+% arXiv: Pruthi, Liu, Sundararajan, Kale. The proceedings order is used here.
+@inproceedings{pruthi2020tracin,
+  title         = {Estimating Training Data Influence by Tracing Gradient Descent},
+  author        = {Pruthi, Garima and Liu, Frederick and Kale, Satyen and Sundararajan, Mukund},
+  booktitle     = {Advances in Neural Information Processing Systems},
+  volume        = {33},
+  pages         = {19920--19930},
+  year          = {2020},
+  editor        = {Larochelle, H. and Ranzato, M. and Hadsell, R. and Balcan, M.F. and Lin, H.},
+  publisher     = {Curran Associates, Inc.},
+  url           = {https://proceedings.neurips.cc/paper_files/paper/2020/file/e6385d39ec9394f2f3a354d9d2b88eec-Paper.pdf},
+  eprint        = {2002.08484},
+  archivePrefix = {arXiv}
+}
+
+% Verified: https://proceedings.mlr.press/v235/xia24c.html and arXiv API (2402.04333).
+@inproceedings{xia2024less,
+  title         = {{LESS}: Selecting Influential Data for Targeted Instruction Tuning},
+  author        = {Xia, Mengzhou and Malladi, Sadhika and Gururangan, Suchin and Arora, Sanjeev and Chen, Danqi},
+  booktitle     = {Proceedings of the 41st International Conference on Machine Learning},
+  series        = {Proceedings of Machine Learning Research},
+  volume        = {235},
+  pages         = {54104--54132},
+  year          = {2024},
+  editor        = {Salakhutdinov, Ruslan and Kolter, Zico and Heller, Katherine and Weller, Adrian and Oliver, Nuria and Scarlett, Jonathan and Berkenkamp, Felix},
+  publisher     = {PMLR},
+  url           = {https://proceedings.mlr.press/v235/xia24c.html},
+  eprint        = {2402.04333},
+  archivePrefix = {arXiv}
+}
+
+% Verified: https://proceedings.mlr.press/v305/agia25a.html and arXiv API (2506.19121).
+@inproceedings{agia2025cupid,
+  title         = {CUPID: Curating Data your Robot Loves with Influence Functions},
+  author        = {Agia, Christopher and Sinha, Rohan and Yang, Jingyun and Antonova, Rika and Pavone, Marco and Nishimura, Haruki and Itkina, Masha and Bohg, Jeannette},
+  booktitle     = {Proceedings of The 9th Conference on Robot Learning},
+  series        = {Proceedings of Machine Learning Research},
+  volume        = {305},
+  pages         = {2907--2932},
+  year          = {2025},
+  editor        = {Lim, Joseph and Song, Shuran and Park, Hae-Won},
+  publisher     = {PMLR},
+  url           = {https://proceedings.mlr.press/v305/agia25a.html},
+  eprint        = {2506.19121},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.RO}
+}
+
+% Verified: https://iclr.cc/virtual/2026/poster/10011019 (ICLR 2026 poster; OpenReview forum AcTsKglDdh)
+% and arXiv API (2505.09603; v2 2026-06-19).
+% TODO: unverified -- the OpenReview page itself could not be loaded (bot challenge); booktitle wording kept generic.
+@inproceedings{dass2026datamil,
+  title         = {DataMIL: Selecting Data for Robot Imitation Learning with Datamodels},
+  author        = {Dass, Shivin and Khaddaj, Alaa and Engstrom, Logan and Madry, Aleksander and Ilyas, Andrew and Mart{\'i}n-Mart{\'i}n, Roberto},
+  booktitle     = {International Conference on Learning Representations (ICLR)},
+  year          = {2026},
+  url           = {https://openreview.net/forum?id=AcTsKglDdh},
+  eprint        = {2505.09603},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.RO}
+}
+
+% Verified: https://arxiv.org/abs/2609.10021 (v1 2026-09-09; no comments, no journal ref).
+@misc{xu2026robodrop,
+  title         = {RoboDrop: Curating {VLA} Post-Training Data via Local Gradient Compatibility},
+  author        = {Xu, Runze and Xu, Yuanfan and Xu, Cuijie and Dai, Shuang and Li, Yining and Wang, Yu and Yu, Jincheng},
+  year          = {2026},
+  eprint        = {2609.10021},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.RO},
+  url           = {https://arxiv.org/abs/2609.10021}
+}
+
+% ---------------------------------------------------------------------------
+% Rollout-based curation
+% ---------------------------------------------------------------------------
+
+% Verified: https://roboticsproceedings.org/rss21/p071.html and arXiv API (2503.03707; v2 2025-07-22).
+@inproceedings{chen2025demoscore,
+  title         = {Curating Demonstrations using Online Experience},
+  author        = {Chen, Annie S. and Lessing, Alec M. and Liu, Yuejiang and Finn, Chelsea},
+  booktitle     = {Proceedings of Robotics: Science and Systems},
+  address       = {Los Angeles, CA, USA},
+  month         = jun,
+  year          = {2025},
+  doi           = {10.15607/RSS.2025.XXI.071},
+  url           = {https://roboticsproceedings.org/rss21/p071.html},
+  eprint        = {2503.03707},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.RO}
+}
+
+% ---------------------------------------------------------------------------
+% Data mixtures
+% ---------------------------------------------------------------------------
+
+% Verified: https://proceedings.mlr.press/v270/hejna25a.html and arXiv API (2408.14037).
+% Note: PMLR title is "ReMix"; the arXiv title is "Re-Mix". CoRL 2024 paper; PMLR year is 2025.
+@inproceedings{hejna2025remix,
+  title         = {ReMix: Optimizing Data Mixtures for Large Scale Imitation Learning},
+  author        = {Hejna, Joey and Bhateja, Chethan Anand and Jiang, Yichen and Pertsch, Karl and Sadigh, Dorsa},
+  booktitle     = {Proceedings of The 8th Conference on Robot Learning},
+  series        = {Proceedings of Machine Learning Research},
+  volume        = {270},
+  pages         = {145--164},
+  year          = {2025},
+  editor        = {Agrawal, Pulkit and Kroemer, Oliver and Burgard, Wolfram},
+  publisher     = {PMLR},
+  url           = {https://proceedings.mlr.press/v270/hejna25a.html},
+  eprint        = {2408.14037},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.RO}
+}
+
+% Verified: NeurIPS proceedings BibTeX (dcba6be91359358c2355cd920da3fcbd) and arXiv API (2305.10429).
+@inproceedings{xie2023doremi,
+  title         = {DoReMi: Optimizing Data Mixtures Speeds Up Language Model Pretraining},
+  author        = {Xie, Sang Michael and Pham, Hieu and Dong, Xuanyi and Du, Nan and Liu, Hanxiao and Lu, Yifeng and Liang, Percy S and Le, Quoc V and Ma, Tengyu and Yu, Adams Wei},
+  booktitle     = {Advances in Neural Information Processing Systems},
+  volume        = {36},
+  pages         = {69798--69818},
+  year          = {2023},
+  editor        = {Oh, A. and Naumann, T. and Globerson, A. and Saenko, K. and Hardt, M. and Levine, S.},
+  publisher     = {Curran Associates, Inc.},
+  doi           = {10.52202/075280-3059},
+  url           = {https://proceedings.neurips.cc/paper_files/paper/2023/file/dcba6be91359358c2355cd920da3fcbd-Paper-Conference.pdf},
+  eprint        = {2305.10429},
+  archivePrefix = {arXiv}
+}
+
+% Verified: NeurIPS proceedings BibTeX (56332d41d55ad7ad8024aac625881be7, Datasets and Benchmarks track) and arXiv API (2304.14108).
+@inproceedings{gadre2023datacomp,
+  title         = {DataComp: In search of the next generation of multimodal datasets},
+  author        = {Gadre, Samir Yitzhak and Ilharco, Gabriel and Fang, Alex and Hayase, Jonathan and Smyrnis, Georgios and Nguyen, Thao and Marten, Ryan and Wortsman, Mitchell and Ghosh, Dhruba and Zhang, Jieyu and Orgad, Eyal and Entezari, Rahim and Daras, Giannis and Pratt, Sarah and Ramanujan, Vivek and Bitton, Yonatan and Marathe, Kalyani and Mussmann, Stephen and Vencu, Richard and Cherti, Mehdi and Krishna, Ranjay and Koh, Pang Wei and Saukh, Olga and Ratner, Alexander J and Song, Shuran and Hajishirzi, Hannaneh and Farhadi, Ali and Beaumont, Romain and Oh, Sewoong and Dimakis, Alex and Jitsev, Jenia and Carmon, Yair and Shankar, Vaishaal and Schmidt, Ludwig},
+  booktitle     = {Advances in Neural Information Processing Systems},
+  volume        = {36},
+  pages         = {27092--27112},
+  year          = {2023},
+  editor        = {Oh, A. and Naumann, T. and Globerson, A. and Saenko, K. and Hardt, M. and Levine, S.},
+  publisher     = {Curran Associates, Inc.},
+  doi           = {10.52202/075280-1179},
+  url           = {https://proceedings.neurips.cc/paper_files/paper/2023/file/56332d41d55ad7ad8024aac625881be7-Paper-Datasets_and_Benchmarks.pdf},
+  eprint        = {2304.14108},
+  archivePrefix = {arXiv}
+}
+
+% ---------------------------------------------------------------------------
+% Audits and evaluation protocols for curation (close priors to our core claim)
+% ---------------------------------------------------------------------------
+
+% Verified: https://arxiv.org/abs/2610.38221 (v1 2026-10-28; comment: accepted by the CoRL 2026 Workshop "Oops, I Erred")
+% and https://github.com/jiuyixu25/CuraEval.
+@misc{xu2026curaeval,
+  title         = {CuraEval: Evaluating Demonstration Curation on Mixed-Skill Robot Data},
+  author        = {Xu, Jiuyi and Chen, Meida and Ye, Yang and Shi, Yangming},
+  year          = {2026},
+  eprint        = {2610.38221},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.RO},
+  url           = {https://arxiv.org/abs/2610.38221},
+  note          = {CoRL 2026 Workshop ``Oops, I Erred''}
+}
+
+% Verified: https://icml.cc/virtual/2026/83657 (workshop poster; no arXiv or OpenReview link listed).
+% TODO: unverified -- no PDF or archival version located; only the ICML virtual-site listing was checked.
+@misc{yang2026auditing,
+  title         = {Auditing Offline Demonstration Pruning for Online Robot Deployment},
+  author        = {Yang, Joy Z. and Osorio, Socrates},
+  year          = {2026},
+  howpublished  = {Poster, ICML 2026 Workshop on Decision-Making from Offline Datasets to Online Adaptation: Black-Box Optimization to Reinforcement Learning},
+  url           = {https://icml.cc/virtual/2026/83657}
+}
+
+% Verified: https://neurips.cc/virtual/2026/162882 (workshop poster; OpenReview forum wj9Kj3hsJs, not loaded).
+% TODO: unverified -- PDF not read; only the NeurIPS virtual-site listing was checked.
+@misc{bassi2026smoothness,
+  title         = {Curation Metrics Are a Post-Training Decision: Auditing Trajectory Smoothness for Adapting Robot Foundation Models},
+  author        = {Bassi, Jaiveer},
+  year          = {2026},
+  howpublished  = {Poster, NeurIPS 2026 Workshop RoboPAD: Post-Training Adaptation of Robot Foundation Models},
+  url           = {https://openreview.net/forum?id=wj9Kj3hsJs}
+}
+
+% Verified: arXiv API (2606.05588; v1 2026-06-04; no journal ref).
+@misc{bedi2026auditing,
+  title         = {Auditing Demonstration Curation Metrics: Action-Only Scorers Fail on the Structural Defects That Degrade Imitation Policies},
+  author        = {Bedi, Aarav},
+  year          = {2026},
+  eprint        = {2606.05588},
+  archivePrefix = {arXiv},
+  url           = {https://arxiv.org/abs/2606.05588}
+}

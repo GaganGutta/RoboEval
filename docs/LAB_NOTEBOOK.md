@@ -50,3 +50,26 @@ set, to decide whether 1000 epochs is enough. Pilot runs: all/better/worse/rando
 0, all/worse at seed 1.
 
 **Status:** pilot training in progress.
+
+**Literature check (background agent; key items re-verified by hand via the arXiv API).**
+Close priors exist for almost every stage (details and citations in `docs/RELATED_WORK.md`):
+- *CuraEval* (Xu et al., arXiv:2610.38221, CoRL 2026 workshop) tests our core claim on
+  the same data (robomimic MH, BC-RNN and Diffusion Policy, size-matched random subsets,
+  full-data baseline). Abstract: no curated condition significantly beats full-data
+  training after Holm correction; the PSD smoothness score is nearly identical to episode
+  length on Square; a length-based gain flipped sign when checkpoint reporting, rollout count
+  and eval seeds changed together.
+- *RoboDrop* (Xu et al., arXiv:2609.10021) is close to our Stage 3: per-sample gradient
+  cosine similarity to a trusted clean validation set, evaluated partly on robomimic MH.
+- DemInf ≈ Stage 2, Demo-SCORE = Stage 4, CUPID combines influence with rollouts,
+  Re-Mix reweights MH operators.
+- Per the agent's reading of the robomimic paper (not yet re-checked by us): BC-RNN
+  low-dim on full MH reaches 100% on Lift and Can; on Square "better"-only was below
+  full MH.
+
+What this changes: (1) we cannot claim novelty for individual stages; the contribution,
+if any, is a controlled head-to-head comparison and the combination. (2) A positive result
+for the core claim is not the expected outcome; a careful null result is plausible and still
+worth reporting. (3) It validates protocol choices already made: fixed held-out seeds,
+last-checkpoint reporting, length as an explicit baseline, size-matched random subsets.
+(4) We should add multiple-comparison correction (Holm) to Exp 3.

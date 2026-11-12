@@ -34,5 +34,10 @@ Running list. Each entry: what, why it matters, what we do about it.
 8. **Single policy class.** All results are for BC-RNN on low-dim observations. Data
    value can depend on the learner (e.g. diffusion policies, image observations).
 
+10. **Prior negative evidence.** CuraEval (arXiv:2610.38221) found no curated subset that
+   significantly beats full data on robomimic MH after Holm correction, and showed results
+   can flip with evaluation-protocol changes. Our results must be read against this; we will
+   apply Holm correction to the Exp 3 comparisons.
+
 9. **Small number of seeds.** 3 training seeds per condition; with 100 rollouts per run,
    per-run 95% intervals are about ±10 percentage points at 50% success.
