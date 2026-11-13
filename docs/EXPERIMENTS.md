@@ -65,11 +65,21 @@ Consequence: with the last-checkpoint rule and 3 seeds, differences smaller than
 decided on select seeds only, before any report-seed evaluation (2026-11-12, user approved):
 600 epochs; score = mean over the epoch 400/500/600 checkpoints (`docs/METHODS.md` §2).
 
-**Results.** *Pending (no report-seed evaluation has been run).*
+**Results (2026-11-13, commit `e001287`).** Per-run score = mean of epoch 400/500/600
+checkpoints, 100 report seeds each. Mean ± std over 3 seeds: all 0.656 ± 0.174;
+better-only 0.486 ± 0.167; random 80 0.729 ± 0.087; worse-only 0.584 ± 0.037. Welch
+t-tests with Holm correction: no pair significant (smallest Holm p = 0.43). Full tables,
+per-seed numbers and per-checkpoint means in `RESULTS.md`; figure
+`figures/out/exp1_success.{png,pdf}`.
 
-**Interpretation.** *Pending.*
+**Interpretation.** The hypothesis (better > random > worse) is not supported. The oracle
+better-only subset was lowest on average and declined from epoch 400 to 600 in every seed;
+random 80 was highest. Equal demo counts hide a 1.4–1.7× difference in timesteps (better
+demos are short), so at a fixed number of gradient steps the comparison mixes data quality
+with data amount. Operator labels are therefore not a usable answer key for "which subset
+trains a better policy" under this protocol.
 
-**Limitations.** See `docs/LIMITATIONS.md` items 1–6.
+**Limitations.** See `docs/LIMITATIONS.md` items 1–6, 9, 11, 12.
 
 ---
 

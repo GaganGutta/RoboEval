@@ -1,0 +1,13 @@
+condition,train_seed,filter_key,n_demos,timesteps,mean_length
+all,0,pool,280,59924,214.0142857142857
+all,1,pool,280,59924,214.0142857142857
+all,2,pool,280,59924,214.0142857142857
+better,0,better_pool,80,11432,142.9
+better,1,better_pool,80,11432,142.9
+better,2,better_pool,80,11432,142.9
+random80,0,random80_s0,80,16515,206.4375
+random80,1,random80_s1,80,17280,216.0
+random80,2,random80_s2,80,19954,249.425
+worse,0,worse_pool,100,30439,304.39
+worse,1,worse_pool,100,30439,304.39
+worse,2,worse_pool,100,30439,304.39

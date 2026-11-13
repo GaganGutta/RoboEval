@@ -1,0 +1,516 @@
+{
+  "ckpt": "/mnt/c/Users/gagan/Desktop/data_eval/runs/exp1/worse_s2/run/20261112214243/models/model_epoch_400.pth",
+  "n": 100,
+  "seed_base": 100000,
+  "horizon": 500,
+  "success_rate": 0.62,
+  "eval_seconds": 182.97841811180115,
+  "episodes": [
+    {
+      "seed": 100000,
+      "success": false,
+      "length": 500
+    },
+    {
+      "seed": 100001,
+      "success": true,
+      "length": 255
+    },
+    {
+      "seed": 100002,
+      "success": false,
+      "length": 500
+    },
+    {
+      "seed": 100003,
+      "success": false,
+      "length": 500
+    },
+    {
+      "seed": 100004,
+      "success": true,
+      "length": 268
+    },
+    {
+      "seed": 100005,
+      "success": false,
+      "length": 500
+    },
+    {
+      "seed": 100006,
+      "success": true,
+      "length": 232
+    },
+    {
+      "seed": 100007,
+      "success": true,
+      "length": 213
+    },
+    {
+      "seed": 100008,
+      "success": true,
+      "length": 321
+    },
+    {
+      "seed": 100009,
+      "success": false,
+      "length": 500
+    },
+    {
+      "seed": 100010,
+      "success": false,
+      "length": 500
+    },
+    {
+      "seed": 100011,
+      "success": false,
+      "length": 500
+    },
+    {
+      "seed": 100012,
+      "success": true,
+      "length": 244
+    },
+    {
+      "seed": 100013,
+      "success": true,
+      "length": 242
+    },
+    {
+      "seed": 100014,
+      "success": false,
+      "length": 500
+    },
+    {
+      "seed": 100015,
+      "success": false,
+      "length": 500
+    },
+    {
+      "seed": 100016,
+      "success": true,
+      "length": 301
+    },
+    {
+      "seed": 100017,
+      "success": true,
+      "length": 274
+    },
+    {
+      "seed": 100018,
+      "success": true,
+      "length": 283
+    },
+    {
+      "seed": 100019,
+      "success": true,
+      "length": 211
+    },
+    {
+      "seed": 100020,
+      "success": true,
+      "length": 209
+    },
+    {
+      "seed": 100021,
+      "success": false,
+      "length": 500
+    },
+    {
+      "seed": 100022,
+      "success": true,
+      "length": 207
+    },
+    {
+      "seed": 100023,
+      "success": false,
+      "length": 500
+    },
+    {
+      "seed": 100024,
+      "success": true,
+      "length": 255
+    },
+    {
+      "seed": 100025,
+      "success": true,
+      "length": 191
+    },
+    {
+      "seed": 100026,
+      "success": false,
+      "length": 500
+    },
+    {
+      "seed": 100027,
+      "success": true,
+      "length": 338
+    },
+    {
+      "seed": 100028,
+      "success": true,
+      "length": 229
+    },
+    {
+      "seed": 100029,
+      "success": true,
+      "length": 222
+    },
+    {
+      "seed": 100030,
+      "success": true,
+      "length": 282
+    },
+    {
+      "seed": 100031,
+      "success": true,
+      "length": 242
+    },
+    {
+      "seed": 100032,
+      "success": true,
+      "length": 254
+    },
+    {
+      "seed": 100033,
+      "success": true,
+      "length": 288
+    },
+    {
+      "seed": 100034,
+      "success": true,
+      "length": 223
+    },
+    {
+      "seed": 100035,
+      "success": false,
+      "length": 500
+    },
+    {
+      "seed": 100036,
+      "success": true,
+      "length": 221
+    },
+    {
+      "seed": 100037,
+      "success": true,
+      "length": 368
+    },
+    {
+      "seed": 100038,
+      "success": false,
+      "length": 500
+    },
+    {
+      "seed": 100039,
+      "success": true,
+      "length": 268
+    },
+    {
+      "seed": 100040,
+      "success": true,
+      "length": 344
+    },
+    {
+      "seed": 100041,
+      "success": true,
+      "length": 370
+    },
+    {
+      "seed": 100042,
+      "success": false,
+      "length": 500
+    },
+    {
+      "seed": 100043,
+      "success": true,
+      "length": 353
+    },
+    {
+      "seed": 100044,
+      "success": false,
+      "length": 500
+    },
+    {
+      "seed": 100045,
+      "success": false,
+      "length": 500
+    },
+    {
+      "seed": 100046,
+      "success": true,
+      "length": 341
+    },
+    {
+      "seed": 100047,
+      "success": false,
+      "length": 500
+    },
+    {
+      "seed": 100048,
+      "success": false,
+      "length": 500
+    },
+    {
+      "seed": 100049,
+      "success": false,
+      "length": 500
+    },
+    {
+      "seed": 100050,
+      "success": true,
+      "length": 419
+    },
+    {
+      "seed": 100051,
+      "success": true,
+      "length": 198
+    },
+    {
+      "seed": 100052,
+      "success": false,
+      "length": 500
+    },
+    {
+      "seed": 100053,
+      "success": true,
+      "length": 366
+    },
+    {
+      "seed": 100054,
+      "success": false,
+      "length": 500
+    },
+    {
+      "seed": 100055,
+      "success": true,
+      "length": 258
+    },
+    {
+      "seed": 100056,
+      "success": true,
+      "length": 272
+    },
+    {
+      "seed": 100057,
+      "success": true,
+      "length": 217
+    },
+    {
+      "seed": 100058,
+      "success": true,
+      "length": 254
+    },
+    {
+      "seed": 100059,
+      "success": false,
+      "length": 500
+    },
+    {
+      "seed": 100060,
+      "success": false,
+      "length": 500
+    },
+    {
+      "seed": 100061,
+      "success": true,
+      "length": 336
+    },
+    {
+      "seed": 100062,
+      "success": true,
+      "length": 202
+    },
+    {
+      "seed": 100063,
+      "success": true,
+      "length": 220
+    },
+    {
+      "seed": 100064,
+      "success": false,
+      "length": 500
+    },
+    {
+      "seed": 100065,
+      "success": true,
+      "length": 242
+    },
+    {
+      "seed": 100066,
+      "success": false,
+      "length": 500
+    },
+    {
+      "seed": 100067,
+      "success": true,
+      "length": 262
+    },
+    {
+      "seed": 100068,
+      "success": false,
+      "length": 500
+    },
+    {
+      "seed": 100069,
+      "success": true,
+      "length": 243
+    },
+    {
+      "seed": 100070,
+      "success": true,
+      "length": 254
+    },
+    {
+      "seed": 100071,
+      "success": true,
+      "length": 254
+    },
+    {
+      "seed": 100072,
+      "success": true,
+      "length": 291
+    },
+    {
+      "seed": 100073,
+      "success": true,
+      "length": 275
+    },
+    {
+      "seed": 100074,
+      "success": true,
+      "length": 206
+    },
+    {
+      "seed": 100075,
+      "success": true,
+      "length": 334
+    },
+    {
+      "seed": 100076,
+      "success": true,
+      "length": 405
+    },
+    {
+      "seed": 100077,
+      "success": true,
+      "length": 213
+    },
+    {
+      "seed": 100078,
+      "success": false,
+      "length": 500
+    },
+    {
+      "seed": 100079,
+      "success": false,
+      "length": 500
+    },
+    {
+      "seed": 100080,
+      "success": true,
+      "length": 233
+    },
+    {
+      "seed": 100081,
+      "success": false,
+      "length": 500
+    },
+    {
+      "seed": 100082,
+      "success": true,
+      "length": 408
+    },
+    {
+      "seed": 100083,
+      "success": true,
+      "length": 282
+    },
+    {
+      "seed": 100084,
+      "success": false,
+      "length": 500
+    },
+    {
+      "seed": 100085,
+      "success": false,
+      "length": 500
+    },
+    {
+      "seed": 100086,
+      "success": false,
+      "length": 500
+    },
+    {
+      "seed": 100087,
+      "success": false,
+      "length": 500
+    },
+    {
+      "seed": 100088,
+      "success": false,
+      "length": 500
+    },
+    {
+      "seed": 100089,
+      "success": false,
+      "length": 500
+    },
+    {
+      "seed": 100090,
+      "success": true,
+      "length": 188
+    },
+    {
+      "seed": 100091,
+      "success": true,
+      "length": 301
+    },
+    {
+      "seed": 100092,
+      "success": true,
+      "length": 306
+    },
+    {
+      "seed": 100093,
+      "success": false,
+      "length": 500
+    },
+    {
+      "seed": 100094,
+      "success": true,
+      "length": 322
+    },
+    {
+      "seed": 100095,
+      "success": false,
+      "length": 500
+    },
+    {
+      "seed": 100096,
+      "success": true,
+      "length": 236
+    },
+    {
+      "seed": 100097,
+      "success": true,
+      "length": 260
+    },
+    {
+      "seed": 100098,
+      "success": true,
+      "length": 393
+    },
+    {
+      "seed": 100099,
+      "success": true,
+      "length": 220
+    }
+  ],
+  "task": "can",
+  "condition": "worse",
+  "train_seed": 2,
+  "epoch": 400,
+  "seedset": "report",
+  "git_commit": "e001287f785da9ceb01b8847bf653bf2eb313d6a"
+}

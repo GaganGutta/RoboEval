@@ -93,3 +93,30 @@ for the core claim is not the expected outcome; a careful null result is plausib
 worth reporting. (3) It validates protocol choices already made: fixed held-out seeds,
 last-checkpoint reporting, length as an explicit baseline, size-matched random subsets.
 (4) We should add multiple-comparison correction (Holm) to Exp 3.
+
+## 2026-11-13 — Exp 1 results
+
+Report-seed evaluation of 12 runs × 3 checkpoints × 100 episodes finished at 00:16
+(about 95 min; later evaluations were slower, ~3 min each, because failing episodes run
+the full 500 steps).
+
+Result (mean ± std over 3 seeds): all 0.66 ± 0.17, better-only 0.49 ± 0.17, random 80
+0.73 ± 0.09, worse-only 0.58 ± 0.04. No pairwise difference significant after Holm.
+
+This is the opposite of the hypothesis on the key comparison: the oracle subset was the
+*worst* on average, and declined from checkpoint 400 to 600 in all 3 seeds. Checked one
+possible explanation right away: counted timesteps per subset. better-only has 11.4k
+timesteps vs 16.5–20.0k for the random 80 subsets, so "same size" in demos is not the
+same amount of data. Did not test the overfitting explanation (it would need training
+with a smaller budget or a timestep-matched random baseline).
+
+Also noticed: the Exp 1 figure's commit label shows two commits (`e001287`, `e2edc4c`)
+because the learning-curve rows were evaluated at the earlier commit. Correct as is.
+
+Added Welch t-tests + Holm and the subset-size table to the report phase so every number in
+RESULTS.md comes from `python -m experiments.exp1_baselines --phase report`.
+
+Pushed the repository to GitHub (GaganGutta/RoboEval) on request.
+
+**Next:** Exp 2 (ranking AUROC, no training). Before Exp 3: decide budget rule for subsets of
+different sizes (limitation 12).

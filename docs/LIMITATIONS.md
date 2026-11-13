@@ -25,8 +25,8 @@ Running list. Each entry: what, why it matters, what we do about it.
    are not directly comparable to published robomimic numbers (also because of the
    checkpoint rule, see METHODS §1).
 
-6. **Reduced training budget (pending).** The paper trains 2000 epochs; compute limits may
-   force fewer. The budget is chosen from learning curves on selection seeds only.
+6. **Reduced training budget.** The paper trains 2000 epochs; we train 600, chosen from
+   pilot learning curves on selection seeds only. Results may differ at other budgets.
 
 7. **Held-out validation uses labels.** Stage 3 uses 20 "better" demos as a trusted set;
    random selection gets no such information.
@@ -48,3 +48,9 @@ Running list. Each entry: what, why it matters, what we do about it.
    A single-checkpoint result is therefore noisy, and the comparison between subsets of
    different sizes depends on the training budget. All subset conditions use the same
    number of gradient steps, which gives smaller subsets more passes over each demo.
+
+12. **Equal demo count is not equal data.** Size-matched random subsets match the number of
+   demos, not timesteps. On Can, better-only (80 demos) has 11,432 timesteps; random 80
+   subsets have 16,515–19,954 (`results/exp1/subset_sizes.csv`). At a fixed gradient-step
+   budget, any score correlated with short episodes selects less data. Exp 3 must either
+   match timesteps too, or report both.

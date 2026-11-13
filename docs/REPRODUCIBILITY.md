@@ -41,5 +41,5 @@ full config and runtime.
 | Replay sanity check | `python -m eval.replay_check --task can --n 30 --out results/sanity/replay_can.json` |
 | Exp 1 train | `python -m experiments.exp1_baselines --phase train --runs full` |
 | Exp 1 eval | `python -m experiments.exp1_baselines --phase eval --runs full --seedset report` |
-| Exp 1 table | `python -m experiments.exp1_baselines --phase report` |
-| Exp 1 figures | `python figures/exp1.py` |
+| Exp 1 tables (summary, per-run, tests, subset sizes) | `python -m experiments.exp1_baselines --phase report` |
+| Exp 1 figures | `python -m figures.exp1` |

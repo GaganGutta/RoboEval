@@ -103,6 +103,53 @@ def wilson(k, n, z=1.96):
     return (c - h, c + h)
 
 
+def subset_sizes(df):
+    """Demos and timesteps per training subset. Why: subsets with equal demo counts can
+    differ a lot in timesteps (episode length tracks operator tier), which matters at a
+    fixed gradient-step budget."""
+    import h5py
+    import pandas as pd
+    from data.mh import read_filter_key, working_path
+    path = working_path(TASK)
+    rows = []
+    with h5py.File(path, "r") as f:
+        for (cond, seed, key) in df[["condition", "train_seed", "filter_key"]].drop_duplicates().values:
+            demos = read_filter_key(path, key)
+            T = [int(f["data"][d].attrs["num_samples"]) for d in demos]
+            rows.append({"condition": cond, "train_seed": seed, "filter_key": key,
+                         "n_demos": len(demos), "timesteps": sum(T), "mean_length": sum(T) / len(T)})
+    return pd.DataFrame(rows).sort_values(["condition", "train_seed"])
+
+
+PAIRS = [("better", "random80"), ("all", "random80"), ("better", "worse"),
+         ("random80", "worse"), ("all", "better")]
+
+
+def pairwise_tests(per_run):
+    """Welch t-test on per-run scores (n = training seeds) for each planned pair, with Holm
+    correction over the pairs. With 3 seeds per arm these tests have little power; they are
+    reported so that "no significant difference" is stated with a number, not a guess."""
+    import pandas as pd
+    from scipy.stats import ttest_ind
+    g = {c: per_run[per_run.condition == c].score.values for c in per_run.condition.unique()}
+    rows = []
+    for a, b in PAIRS:
+        if a in g and b in g and len(g[a]) > 1 and len(g[b]) > 1:
+            t = ttest_ind(g[a], g[b], equal_var=False)
+            rows.append({"a": a, "b": b, "mean_a": g[a].mean(), "mean_b": g[b].mean(),
+                         "diff": g[a].mean() - g[b].mean(), "t": t.statistic, "p": t.pvalue,
+                         "n_a": len(g[a]), "n_b": len(g[b])})
+    df = pd.DataFrame(rows).sort_values("p").reset_index(drop=True)
+    m = len(df)
+    # Holm step-down: adjusted p_(k) = max_{j<=k} min(1, (m - j) * p_(j))
+    adj, running = [], 0.0
+    for j, p in enumerate(df.p):
+        running = max(running, min(1.0, (m - j) * p))
+        adj.append(running)
+    df["holm_p"] = adj
+    return df
+
+
 def phase_report(args):
     """Collect every eval json into one tidy CSV; summary table uses the REPORT seed set only."""
     import pandas as pd
@@ -136,6 +183,10 @@ def phase_report(args):
         summ.to_csv(os.path.join(RES_ROOT, "summary.csv"), index=False)
         print(per_run.to_string(index=False))
         print(summ.to_string(index=False))
+        subset_sizes(df).to_csv(os.path.join(RES_ROOT, "subset_sizes.csv"), index=False)
+        tests = pairwise_tests(per_run)
+        tests.to_csv(os.path.join(RES_ROOT, "tests.csv"), index=False)
+        print(tests.round(3).to_string(index=False))
     print(f"wrote {len(df)} rows -> results/exp1/all_evals.csv")
 
 

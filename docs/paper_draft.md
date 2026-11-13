@@ -25,13 +25,21 @@ TODO — condensed from `docs/METHODS.md` once stages are implemented.
 
 ## 4. Experimental setup
 - Datasets: robomimic v1.5 MH low-dim, Lift / Can / Square (`docs/DATA_CARD.md`).
-- Policy: BC-RNN (robomimic paper hyperparameters; training budget TODO).
-- Evaluation: last checkpoint, 100 fixed-seed episodes, ≥ 3 training seeds, mean ± std.
+- Policy: BC-RNN (robomimic paper hyperparameters; 600 epochs of 100 steps).
+- Evaluation: mean of the epoch 400/500/600 checkpoints, each on 100 fixed-seed episodes;
+  3 training seeds, mean ± std; Welch t-tests with Holm correction.
 - Baselines: all data; random subset of equal size; oracle (better-operator demos only).
 
 ## 5. Results
 ### 5.1 Does data quality matter? (Exp 1)
-TODO
+On Can MH with BC-RNN (600 epochs; mean of 3 late checkpoints; 100 fixed evaluation
+episodes; 3 training seeds), training only on the better operators' 80 demos gave
+0.49 ± 0.17 success, versus 0.73 ± 0.09 for random subsets of 80 demos, 0.66 ± 0.17 for all
+280 demos and 0.58 ± 0.04 for the worse operators' 100 demos. No difference was significant
+after Holm correction. The better-only policies declined between epoch 400 and 600 in every
+seed. Size-matched subsets were not matched in timesteps: better-only had 11.4k vs
+16.5–20.0k for random. TODO: whether a timestep-matched or budget-adjusted comparison
+changes this.
 ### 5.2 Do offline scores recover operator quality? (Exp 2)
 TODO
 ### 5.3 Subset selection (Exp 3)
