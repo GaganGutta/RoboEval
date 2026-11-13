@@ -49,7 +49,24 @@ first (6 runs × 1000 epochs, ~70 min), evaluated every 100–200 epochs on the 
 set, to decide whether 1000 epochs is enough. Pilot runs: all/better/worse/random80 at seed
 0, all/worse at seed 1.
 
-**Status:** pilot training in progress.
+**Pilot training.** 6 runs × 1000 epochs, run 6 at a time. Took 132 min instead of the
+planned ~70: from about 16:33 to 17:10 the laptop GPU power limit dropped from 75 W to 10 W
+(P8 state, 210 MHz), and epochs slowed from ~0.07 to 17–28 min. It recovered on its own
+(power cap then 55 W). Outside our control; no runs failed. Lesson: check `nvidia-smi`
+power cap before long jobs.
+
+**Pilot curves (select seeds, n = 50).** Full table in `docs/EXPERIMENTS.md`. Mean
+success over the 6 runs: 0.34 / 0.64 / 0.60 / 0.54 / 0.55 at epochs 200–1000. Surprises:
+(a) big swings between consecutive checkpoints of one run (0.96 → 0.58), more than
+rollout noise; (b) better-only collapses after epoch 400 (0.62 → 0.10); (c) all runs are
+far below the ~100% usually quoted for Can MH (paper uses best checkpoint; not re-checked).
+Checked the saved config for a setup bug: GMM 5 modes, `low_noise_eval` true, lr 1e-4 with
+no schedule, RNN horizon 10, hidden 400 — matches the paper settings. No bug found.
+Because there is no LR schedule, a checkpoint at epoch k of a 1000-epoch run is the same
+training state as the end of a k-epoch run, so pilot checkpoints can be reused.
+
+**Open decision:** epoch budget and checkpoint rule (last checkpoint vs mean over the last
+few checkpoints). To be fixed before any report-seed evaluation.
 
 **Literature check (background agent; key items re-verified by hand via the arXiv API).**
 Close priors exist for almost every stage (details and citations in `docs/RELATED_WORK.md`):

@@ -41,3 +41,10 @@ Running list. Each entry: what, why it matters, what we do about it.
 
 9. **Small number of seeds.** 3 training seeds per condition; with 100 rollouts per run,
    per-run 95% intervals are about ±10 percentage points at 50% success.
+
+11. **Checkpoint-to-checkpoint variance and budget dependence.** In the Exp 1 pilot, success
+   of one run changed by up to 0.4 between checkpoints 200 epochs apart, and better-only
+   (80 demos) fell from 0.62 to 0.10 between epochs 400 and 800 while larger sets did not.
+   A single-checkpoint result is therefore noisy, and the comparison between subsets of
+   different sizes depends on the training budget. All subset conditions use the same
+   number of gradient steps, which gives smaller subsets more passes over each demo.

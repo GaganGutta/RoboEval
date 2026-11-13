@@ -18,4 +18,6 @@ not exactly reproduce collection-time dynamics; see `docs/LIMITATIONS.md` #5.
 
 ## Exp 1 — Can MH baselines
 
-*Pilot running (training-budget choice). No results yet.*
+*Pilot done (select seeds only; see docs/EXPERIMENTS.md). Learning curves are noisy and
+better-only overfits after epoch 400. No report-seed results yet; budget and checkpoint
+rule pending.*
