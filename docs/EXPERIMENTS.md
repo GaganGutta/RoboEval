@@ -23,8 +23,9 @@ key for the rest of the project.
   | random 80 | `random80_s<seed>` | 80 |
 
 - Training seeds: 0, 1, 2 (random80 draws a new subset per seed).
-- Metric: success of the last checkpoint over 100 report-seed episodes, horizon 500.
-  Mean ± std over seeds.
+- Training budget: 600 epochs (chosen from the pilot, below).
+- Metric: per run, mean success of the epoch 400/500/600 checkpoints, each over the same
+  100 report-seed episodes (horizon 500). Mean ± std over the 3 training seeds.
 - Script: `experiments/exp1_baselines.py`.
 
 **Pilot (training-budget choice).** 6 runs (all/better/worse/random80 at seed 0; all/worse
@@ -61,7 +62,8 @@ Observations (findings, not interpretation):
 
 Consequence: with the last-checkpoint rule and 3 seeds, differences smaller than roughly
 0.3 between conditions will not be distinguishable. The budget and checkpoint rule are
-being decided now, on select seeds only, before any report-seed evaluation.
+decided on select seeds only, before any report-seed evaluation (2026-11-12, user approved):
+600 epochs; score = mean over the epoch 400/500/600 checkpoints (`docs/METHODS.md` §2).
 
 **Results.** *Pending (no report-seed evaluation has been run).*
 

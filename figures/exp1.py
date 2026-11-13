@@ -3,10 +3,11 @@
 Outputs (PNG + PDF) in figures/out/:
   exp1_learning_curves  success vs training epoch per condition (SELECT seed set: these
                         curves are what we used to choose the training budget)
-  exp1_success          final-checkpoint success per condition on the REPORT seed set,
-                        mean ± std over training seeds, individual seeds as dots
+  exp1_success          per-run score (mean success over the report_epochs checkpoints,
+                        REPORT seed set) per condition, mean ± std over training seeds,
+                        individual seeds as dots. Read from results/exp1/per_run.csv.
 
-Usage: python figures/exp1.py [--final_epoch 1000]
+Usage: python -m figures.exp1
 """
 import argparse
 import os
@@ -31,9 +32,7 @@ def save(fig, name):
 
 
 def main():
-    p = argparse.ArgumentParser()
-    p.add_argument("--final_epoch", type=int, default=1000)
-    args = p.parse_args()
+    argparse.ArgumentParser(description=__doc__).parse_args()
     df = pd.read_csv(os.path.join(REPO, "results", "exp1", "all_evals.csv"))
     commit = ",".join(sorted(set(df.git_commit.astype(str).str[:8])))
 
@@ -52,19 +51,20 @@ def main():
         ax.text(0.01, 0.01, f"commit {commit}", transform=ax.transAxes, fontsize=6, color="gray")
         save(fig, "exp1_learning_curves")
 
-    rep = df[(df.seedset == "report") & (df.epoch == args.final_epoch)]
-    if len(rep):
+    per_run_path = os.path.join(REPO, "results", "exp1", "per_run.csv")
+    if os.path.exists(per_run_path):
+        rep = pd.read_csv(per_run_path)
         fig, ax = plt.subplots(figsize=(5, 3.5))
         conds = [c for c in ORDER if c in set(rep.condition)]
         for i, c in enumerate(conds):
             g = rep[rep.condition == c]
-            ax.bar(i, g.success_rate.mean(), yerr=g.success_rate.std() if len(g) > 1 else 0,
+            ax.bar(i, g.score.mean(), yerr=g.score.std() if len(g) > 1 else 0,
                    color=COLORS[c], alpha=0.7, capsize=4)
-            ax.scatter([i] * len(g), g.success_rate, color="k", s=10, zorder=3)
+            ax.scatter([i] * len(g), g.score, color="k", s=10, zorder=3)
         ax.set_xticks(range(len(conds)), [LABELS[c] for c in conds], rotation=15, fontsize=8)
-        ax.set_ylabel(f"success (report seeds, n={int(rep.n.iloc[0])}/run)")
+        ax.set_ylabel("success (report seeds, mean of 3 ckpts)")
         ax.set_ylim(0, 1.05)
-        ax.set_title(f"Exp 1: Can MH, epoch {args.final_epoch}, mean ± std over seeds")
+        ax.set_title("Exp 1: Can MH, mean ± std over training seeds")
         ax.text(0.01, 0.97, f"commit {commit}", transform=ax.transAxes, fontsize=6, color="gray", va="top")
         save(fig, "exp1_success")
     print("figures ->", OUT)

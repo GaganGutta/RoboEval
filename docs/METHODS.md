@@ -17,16 +17,22 @@ Behavior cloning with an LSTM and a Gaussian-mixture action head, as in robomimi
 | Optimizer | Adam, lr 1e-4, no decay, no L2 | paper |
 | Batch size | 100 | paper |
 | "Epoch" | 100 gradient steps | paper |
-| Number of epochs | **TBD from pilot** (paper: 2000) | see Exp 1 pilot |
+| Number of epochs | **600** (paper: 2000) | Exp 1 pilot, select seeds: mean success plateaus from epoch 400 |
 
 Implementation: `train/bc_rnn.py` builds a robomimic `BCConfig` from
 `configs/bc_rnn_lowdim.yaml` and calls `robomimic.scripts.train.train`. The training subset
 is selected with a robomimic filter key. robomimic's in-training rollouts and validation are
 **disabled**; checkpoints are saved at fixed epochs and evaluated separately (Section 2).
 
-Deviation from the paper we must disclose: the paper reports the *best* checkpoint over
-evaluations run every 50 epochs. That number is selected on the same rollouts it reports
-and is optimistically biased. We report the last checkpoint (Section 2).
+Deviations from the paper we must disclose: (1) 600 epochs instead of 2000. (2) The paper
+reports the *best* checkpoint over evaluations run every 50 epochs; that number is selected
+on the same rollouts it reports and is optimistically biased. We report the mean over a
+fixed set of late checkpoints (Section 2).
+
+Learning rate is constant (no schedule), so the training state at epoch k does not depend
+on the planned total. The six Exp 1 pilot runs were trained to 1000 epochs; we use their
+epoch 400/500/600 checkpoints, which are the same as those of a 600-epoch run (up to GPU
+floating-point nondeterminism).
 
 Compatibility shim: robomimic v0.5.0 loads a CLIP text model when
 `robomimic.utils.lang_utils` is imported. Our policies are not language-conditioned, so
@@ -45,9 +51,14 @@ This does not change training or evaluation behavior for non-language policies.
   - *report* set: seeds 100000–100099 (n = 100). Used only for reported numbers.
   - *select* set: seeds 200000+ . Used for any tuning decision (e.g. training budget).
   Every condition is evaluated on the same initial states.
-- **Checkpoint rule.** Reported success = success of the final checkpoint on the report set.
-  No checkpoint selection on reported rollouts.
-- **Uncertainty.** Per run: Wilson 95% interval on k/n. Across training seeds (≥ 3): mean
+- **Checkpoint rule.** Each run is scored by the mean success of its epoch 400, 500 and 600
+  checkpoints, each evaluated on the full report set (3 × 100 episodes). The rule was
+  fixed after the pilot and before any report-seed evaluation, from select-seed data only.
+  Why: in the pilot, one run's success moved by up to 0.4 between checkpoints 200 epochs
+  apart, much more than rollout noise. Averaging three checkpoints reduces that noise
+  without choosing a checkpoint by its result. (Changed from the original plan, which was
+  "last checkpoint only".)
+- **Uncertainty.** Per checkpoint: Wilson 95% interval on k/n. Across training seeds (≥ 3): mean
   and sample standard deviation of per-run success rates.
 - Implementation: `eval/rollout.py`. Episodes run in parallel worker processes, each with
   its own env and a CPU copy of the policy. The episode loop only needs

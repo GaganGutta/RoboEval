@@ -12,13 +12,17 @@ algo:
 train:
   batch_size: 100          # paper
   steps_per_epoch: 100     # paper ("epoch" = 100 gradient steps)
-  num_epochs: 1000         # PAPER USES 2000. Reduced after calibration; see docs/METHODS.md
-  save_epochs: [200, 400, 600, 800, 1000]
+  num_epochs: 600          # PAPER USES 2000. Chosen from the Exp 1 pilot learning curves
+                           # (select seeds only): mean success plateaus from epoch 400.
+  save_epochs: [100, 200, 300, 400, 500, 600]
 eval:
   # We disable robomimic's in-training rollouts and evaluate saved checkpoints
-  # ourselves with fixed env seeds (eval/rollout.py). Reported metric: success of the
-  # LAST checkpoint on the held-out seed set. No checkpoint picking on reported rollouts.
+  # ourselves with fixed env seeds (eval/rollout.py). Reported metric per run: MEAN
+  # success of the last three checkpoints (report_epochs) on the held-out seed set.
+  # Fixed in advance; no checkpoint picking. Why: the pilot showed swings of up to 0.4
+  # between consecutive checkpoints, so a single checkpoint is a noisy measurement.
   horizon: 500             # robomimic registry horizon for lift/can/square MH
   n_rollouts: 100
+  report_epochs: [400, 500, 600]
   report_seed_base: 100000 # reported rollouts use seeds 100000..100099
   select_seed_base: 200000 # reserved for any tuning; never reported

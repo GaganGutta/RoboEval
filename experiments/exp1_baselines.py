@@ -9,6 +9,7 @@ Conditions (all drawn from the 280-demo pool; the 20 held-out "better" demos are
 Phases (each one command, resumable; finished work is skipped):
     python -m experiments.exp1_baselines --phase train  --runs all:0 better:0 ...
     python -m experiments.exp1_baselines --phase eval   --runs ... --epochs 200 400 --seedset select --n 50
+    python -m experiments.exp1_baselines --phase eval   --runs full          # report seeds, report_epochs
     python -m experiments.exp1_baselines --phase report
 Convenience: --runs full  ==  every condition x seeds 0,1,2.
 """
@@ -29,6 +30,7 @@ SEEDS = [0, 1, 2]
 RUN_ROOT = os.path.join(REPO, "runs", "exp1")
 RES_ROOT = os.path.join(REPO, "results", "exp1")
 CFG = yaml.safe_load(open(os.path.join(REPO, "configs", "bc_rnn_lowdim.yaml")))
+REPORT_EPOCHS = CFG["eval"]["report_epochs"]
 
 
 def parse_runs(spec):
@@ -118,10 +120,21 @@ def phase_report(args):
     df = pd.DataFrame(rows)
     os.makedirs(RES_ROOT, exist_ok=True)
     df.to_csv(os.path.join(RES_ROOT, "all_evals.csv"), index=False)
-    rep = df[(df.seedset == "report") & (df.epoch == args.final_epoch)]
+    # Per-run score = mean success over the fixed report_epochs checkpoints (METHODS §2).
+    # Only runs with every report checkpoint evaluated are scored; nothing is imputed.
+    rep = df[(df.seedset == "report") & (df.epoch.isin(REPORT_EPOCHS))]
     if len(rep):
-        summ = rep.groupby("condition").success_rate.agg(["mean", "std", "count"]).reset_index()
+        per_run = (rep.groupby(["condition", "train_seed"])
+                   .agg(n_ckpts=("epoch", "nunique"), score=("success_rate", "mean"),
+                        successes=("successes", "sum"), episodes=("n", "sum"),
+                        git_commit=("git_commit", lambda c: ",".join(sorted(set(c)))))
+                   .reset_index())
+        per_run = per_run[per_run.n_ckpts == len(REPORT_EPOCHS)]
+        per_run.to_csv(os.path.join(RES_ROOT, "per_run.csv"), index=False)
+        summ = per_run.groupby("condition").score.agg(["mean", "std", "count"]).reset_index()
+        summ["report_epochs"] = " ".join(map(str, REPORT_EPOCHS))
         summ.to_csv(os.path.join(RES_ROOT, "summary.csv"), index=False)
+        print(per_run.to_string(index=False))
         print(summ.to_string(index=False))
     print(f"wrote {len(df)} rows -> results/exp1/all_evals.csv")
 
@@ -137,13 +150,12 @@ def main():
     p.add_argument("--seedset", choices=["select", "report"], default="report")
     p.add_argument("--n", type=int, default=CFG["eval"]["n_rollouts"])
     p.add_argument("--workers", type=int, default=8, help="rollout processes (8 fits in WSL's 15 GB)")
-    p.add_argument("--final_epoch", type=int, default=CFG["train"]["num_epochs"])
     args = p.parse_args()
 
     if args.phase == "train":
         phase_train(parse_runs(args.runs), args)
     elif args.phase == "eval":
-        args.epochs = args.epochs or [CFG["train"]["num_epochs"]]
+        args.epochs = args.epochs or REPORT_EPOCHS
         phase_eval(parse_runs(args.runs), args)
     else:
         phase_report(args)

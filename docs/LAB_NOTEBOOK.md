@@ -65,8 +65,11 @@ no schedule, RNN horizon 10, hidden 400 — matches the paper settings. No bug f
 Because there is no LR schedule, a checkpoint at epoch k of a 1000-epoch run is the same
 training state as the end of a k-epoch run, so pilot checkpoints can be reused.
 
-**Open decision:** epoch budget and checkpoint rule (last checkpoint vs mean over the last
-few checkpoints). To be fixed before any report-seed evaluation.
+**Decision (before any report-seed evaluation).** Budget 600 epochs; each run scored by the
+mean success of its epoch 400/500/600 checkpoints on the 100 report seeds. Options put to
+the user: this (~3 h total) or last checkpoint only (~1.7 h, but differences below ~0.3 not
+detectable). User chose checkpoint averaging. Remaining 6 runs (better/random80 seeds 1–2,
+all/worse seed 2) trained to 600 epochs; pilot runs reused (constant LR).
 
 **Literature check (background agent; key items re-verified by hand via the arXiv API).**
 Close priors exist for almost every stage (details and citations in `docs/RELATED_WORK.md`):
